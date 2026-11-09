@@ -1,0 +1,42 @@
+GET /health
+  → 200 {"ok":true,"mode":"faulty"}
+
+=== DEF-001 reproduction (RL_MODE=faulty) ===
+
+POST /__test/reset
+  → 200 {"ok":true,"mode":"faulty"}
+
+1. Escalate a defaulted loan: ₦10,000.00 principal, no interest
+POST /events {"client_id":"client-a","loan_id":"L-DEMO","event_id":"esc-demo","type":"ESCALATION","event_time":"2026-10-05T09:00:00Z","sent_at":"2026-10-05T09:00:00Z","principal_naira":10000,"interest_naira":0}
+  → 200 {"status":"ACCEPTED","seq":1,"business_date":"2026-10-05"}
+
+2. Simulate a lost response: the next event is committed but the client receives 504
+POST /__test/faults {"lose_response_next":true}
+  → 200 {"ok":true}
+
+3. Client posts a ₦6,000.00 repayment
+POST /events {"client_id":"client-a","loan_id":"L-DEMO","event_id":"rep-demo","type":"REPAYMENT","event_time":"2026-10-05T10:00:00Z","amount_naira":6000,"sent_at":"2026-10-05T10:00:01Z"}
+  → 504 {"status":"GATEWAY_TIMEOUT","message":"Injected fault: response lost after commit"}
+
+4. Client retries the SAME event_id 30s later (new sent_at, as its HTTP retry policy does)
+POST /events {"client_id":"client-a","loan_id":"L-DEMO","event_id":"rep-demo","type":"REPAYMENT","event_time":"2026-10-05T10:00:00Z","amount_naira":6000,"sent_at":"2026-10-05T10:00:31Z"}
+  → 200 {"status":"ACCEPTED","seq":3,"business_date":"2026-10-05"}
+
+5. Stored loan balance — expected ₦4,000.00 outstanding
+GET /loans/client-a/L-DEMO
+  → 200 {"client_id":"client-a","loan_id":"L-DEMO","status":"IN_RECOVERY","principal_outstanding_naira":0,"interest_outstanding_naira":0,"total_outstanding_naira":0,"total_repaid_naira":12000,"overpayment_naira":2000,"written_off_naira":0}
+
+6. Ledger entries for the loan — expected 1 REPAYMENT
+GET /ledger?loan_id=L-DEMO
+  → 200 [{"seq":1,"client_id":"client-a","event_id":"esc-demo","loan_id":"L-DEMO","type":"ESCALATION","event_time":"2026-10-05T09:00:00.000Z","business_date":"2026-10-05","received_at":"2026-11-03T13:11:43.907Z","payload_fingerprint":"4bb2940462395e9ca3f1d8d379e041c351247668bf6faa9634439f589b539d1b","event":{"client_id":"client-a","loan_id":"L-DEMO","event_id":"esc-demo","type":"ESCALATION","event_time":"2026-10-05T09:00:00Z","sent_at":"2026-10-05T09:00:00Z","principal_naira":10000,"interest_naira":0}},{"seq":2,"client_id":"client-a","event_id":"rep-demo","loan_id":"L-DEMO","type":"REPAYMENT","event_time":"2026-10-05T10:00:00.000Z","business_date":"2026-10-05","received_at":"2026-11-03T13:11:43.912Z","payload_fingerprint":"eec16821a7cba0fce86d9ed8c08093327f9c00bc9bd7c3ed4b6a8f4a941b2137","event":{"client_id":"client-a","loan_id":"L-DEMO","event_id":"rep-demo","type":"REPAYMENT","event_time":"2026-10-05T10:00:00Z","amount_naira":6000,"sent_at":"2026-10-05T10:00:01Z"}},{"seq":3,"client_id":"client-a","event_id":"rep-demo","loan_id":"L-DEMO","type":"REPAYMENT","event_time":"2026-10-05T10:00:00.000Z","business_date":"2026-10-05","received_at":"2026-11-03T13:11:43.915Z","payload_fingerprint":"eec16821a7cba0fce86d9ed8c08093327f9c00bc9bd7c3ed4b6a8f4a941b2137","event":{"client_id":"client-a","loan_id":"L-DEMO","event_id":"rep-demo","type":"REPAYMENT","event_time":"2026-10-05T10:00:00Z","amount_naira":6000,"sent_at":"2026-10-05T10:00:31Z"}}]
+
+   REPAYMENT entries: 2
+
+7. Lender sends RECOVERED — expected 409 BALANCE_NOT_ZERO
+POST /events {"client_id":"client-a","loan_id":"L-DEMO","event_id":"res-demo","type":"RESOLUTION","resolution":"RECOVERED","event_time":"2026-10-05T11:00:00Z","sent_at":"2026-10-05T11:00:00Z"}
+  → 200 {"status":"ACCEPTED","seq":4,"business_date":"2026-10-05"}
+
+8. Daily reconciliation for 2026-10-05 — expected 1 repayment, ₦6,000.00, no mismatches
+POST /jobs/reconcile {"business_date":"2026-10-05"}
+  → 200 {"business_date":"2026-10-05","loans_checked":1,"mismatches_corrected":[],"day_summary":{"events":4,"repayment_count":2,"repayment_total_naira":12000,"repayment_event_ids":["client-a:rep-demo","client-a:rep-demo"]}}
+

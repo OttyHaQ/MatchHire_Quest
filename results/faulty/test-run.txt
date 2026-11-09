@@ -1,0 +1,155 @@
+
+> recovery-ledger-quest@1.0.0 test:faulty
+> cross-env RL_MODE=faulty playwright test
+
+[WebServer] (node:33400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:18948) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:18500) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:20180) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:20180) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 15 tests using 1 worker
+
+(node:17532) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\recovery-ledger.spec.ts:15:7 › Happy path and allocation › TC01 escalate → full repayment → RECOVERED is accepted (74ms)
+  ok  2 tests\recovery-ledger.spec.ts:27:7 › Happy path and allocation › TC02 repayment clears interest first; interest posting adds to interest (32ms)
+  ok  3 tests\recovery-ledger.spec.ts:38:7 › Cut-off and time zone › TC03 cut-off: 23:59:59 WAT belongs to that day, 00:00:00 WAT to the next (28ms)
+  ok  4 tests\recovery-ledger.spec.ts:49:7 › Cut-off and time zone › TC04 time-zone conversion: a WAT-offset timestamp maps to the right WAT day; zone-less is rejected (20ms)
+  ok  5 tests\recovery-ledger.spec.ts:63:7 › Duplicates and retries — selected failure › TC05 byte-identical duplicate is acknowledged and changes nothing (18ms)
+  x   6 tests\recovery-ledger.spec.ts:73:7 › Duplicates and retries — selected failure › TC06 retry after a lost response is applied once (28ms)
+(node:32940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   7 tests\recovery-ledger.spec.ts:89:7 › Duplicates and retries — selected failure › TC07 a retried repayment cannot make an unpaid loan look recovered (89ms)
+(node:7112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   8 tests\recovery-ledger.spec.ts:103:7 › Duplicates and retries — selected failure › TC08 daily reconciliation reports one repayment after a retry (95ms)
+(node:4628) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  9 tests\recovery-ledger.spec.ts:114:7 › Duplicates and retries — selected failure › TC09 two different repayments of the same amount both count (73ms)
+  x  10 tests\recovery-ledger.spec.ts:121:7 › Duplicates and retries — selected failure › TC10 reusing an event_id with a different amount is rejected (34ms)
+(node:20048) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 11 tests\recovery-ledger.spec.ts:132:7 › Partial failure › TC11 balance update fails after commit → event kept, reconciliation repairs the balance (86ms)
+  ok 12 tests\recovery-ledger.spec.ts:147:7 › Guards › TC12 overpayment floors the balance at 0 and records the excess (27ms)
+  ok 13 tests\recovery-ledger.spec.ts:153:7 › Guards › TC13 unknown loan and second escalation are rejected (28ms)
+  ok 14 tests\recovery-ledger.spec.ts:162:7 › Guards › TC14 write-off keeps the balance as written off; resolved loans accept no more events (28ms)
+  ok 15 tests\recovery-ledger.spec.ts:173:7 › Guards › TC15 naira amounts with more than 2 decimal places are rejected (18ms)
+
+
+  1) tests\recovery-ledger.spec.ts:73:7 › Duplicates and retries — selected failure › TC06 retry after a lost response is applied once 
+
+    Error: expect(received).toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+        "body": Object {
+    -     "status": "DUPLICATE",
+    +     "status": "ACCEPTED",
+        },
+        "status": 200,
+      }
+
+      80 |
+      81 |     const retry = await client.send(event, '2026-10-05T10:00:31.000Z'); // client retries 30s later
+    > 82 |     expect(retry).toMatchObject({ status: 200, body: { status: 'DUPLICATE' } });
+         |                   ^
+      83 |
+      84 |     const repayments = (await client.ledger('L-006')).filter((e) => e.type === 'REPAYMENT');
+      85 |     expect(repayments, 'one repayment event must produce one ledger entry').toHaveLength(1);
+        at C:\Users\HP\Documents\recovery-ledger-quest\tests\recovery-ledger.spec.ts:82:19
+
+    Error Context: test-results\recovery-ledger-Duplicates-eee66-st-response-is-applied-once\error-context.md
+
+  2) tests\recovery-ledger.spec.ts:89:7 › Duplicates and retries — selected failure › TC07 a retried repayment cannot make an unpaid loan look recovered 
+
+    Error: expect(received).toMatchObject(expected)
+
+    - Expected  - 2
+    + Received  + 2
+
+      Object {
+    -   "overpayment_naira": 0,
+    -   "total_outstanding_naira": 4000,
+    +   "overpayment_naira": 2000,
+    +   "total_outstanding_naira": 0,
+      }
+
+      94 |     await client.send(event, '2026-10-05T10:00:31.000Z');
+      95 |
+    > 96 |     expect(await client.loan('L-007')).toMatchObject({ total_outstanding_naira: 4_000, overpayment_naira: 0 });
+         |                                        ^
+      97 |
+      98 |     const resolve = await client.send({ event_id: 'res-007', loan_id: 'L-007', type: 'RESOLUTION', resolution: 'RECOVERED' });
+      99 |     expect(resolve).toMatchObject({ status: 409, body: { code: 'BALANCE_NOT_ZERO' } });
+        at C:\Users\HP\Documents\recovery-ledger-quest\tests\recovery-ledger.spec.ts:96:40
+
+    Error Context: test-results\recovery-ledger-Duplicates-03d26--unpaid-loan-look-recovered\error-context.md
+
+  3) tests\recovery-ledger.spec.ts:103:7 › Duplicates and retries — selected failure › TC08 daily reconciliation reports one repayment after a retry 
+
+    Error: expect(received).toMatchObject(expected)
+
+    - Expected  - 2
+    + Received  + 2
+
+      Object {
+    -   "repayment_count": 1,
+    -   "repayment_total_naira": 6000,
+    +   "repayment_count": 2,
+    +   "repayment_total_naira": 12000,
+      }
+
+      109 |
+      110 |     const report = await client.reconcile('2026-10-05');
+    > 111 |     expect(report.day_summary).toMatchObject({ repayment_count: 1, repayment_total_naira: 6_000 });
+          |                                ^
+      112 |   });
+      113 |
+      114 |   test('TC09 two different repayments of the same amount both count', async () => {
+        at C:\Users\HP\Documents\recovery-ledger-quest\tests\recovery-ledger.spec.ts:111:32
+
+    Error Context: test-results\recovery-ledger-Duplicates-40a3c-one-repayment-after-a-retry\error-context.md
+
+  4) tests\recovery-ledger.spec.ts:121:7 › Duplicates and retries — selected failure › TC10 reusing an event_id with a different amount is rejected 
+
+    Error: expect(received).toMatchObject(expected)
+
+    - Expected  - 2
+    + Received  + 4
+
+      Object {
+        "body": Object {
+    -     "code": "EVENT_ID_CONFLICT",
+    +     "business_date": "2026-10-05",
+    +     "seq": 3,
+    +     "status": "ACCEPTED",
+        },
+    -   "status": 409,
+    +   "status": 200,
+      }
+
+      124 |     const clash = await client.send({ event_id: 'rep-010', loan_id: 'L-010', type: 'REPAYMENT', amount_naira: 9_000 });
+      125 |
+    > 126 |     expect(clash).toMatchObject({ status: 409, body: { code: 'EVENT_ID_CONFLICT' } });
+          |                   ^
+      127 |     expect((await client.loan('L-010')).total_outstanding_naira).toBe(49_000);
+      128 |   });
+      129 | });
+        at C:\Users\HP\Documents\recovery-ledger-quest\tests\recovery-ledger.spec.ts:126:19
+
+    Error Context: test-results\recovery-ledger-Duplicates-22b85-ifferent-amount-is-rejected\error-context.md
+
+  4 failed
+    tests\recovery-ledger.spec.ts:73:7 › Duplicates and retries — selected failure › TC06 retry after a lost response is applied once 
+    tests\recovery-ledger.spec.ts:89:7 › Duplicates and retries — selected failure › TC07 a retried repayment cannot make an unpaid loan look recovered 
+    tests\recovery-ledger.spec.ts:103:7 › Duplicates and retries — selected failure › TC08 daily reconciliation reports one repayment after a retry 
+    tests\recovery-ledger.spec.ts:121:7 › Duplicates and retries — selected failure › TC10 reusing an event_id with a different amount is rejected 
+  11 passed (8.0s)

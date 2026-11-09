@@ -1,0 +1,36 @@
+
+> recovery-ledger-quest@1.0.0 test:fixed
+> cross-env RL_MODE=fixed playwright test
+
+[WebServer] (node:13036) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:25348) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:26132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:24060) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:24060) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 15 tests using 1 worker
+
+(node:31492) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\recovery-ledger.spec.ts:15:7 › Happy path and allocation › TC01 escalate → full repayment → RECOVERED is accepted (114ms)
+  ok  2 tests\recovery-ledger.spec.ts:27:7 › Happy path and allocation › TC02 repayment clears interest first; interest posting adds to interest (56ms)
+  ok  3 tests\recovery-ledger.spec.ts:38:7 › Cut-off and time zone › TC03 cut-off: 23:59:59 WAT belongs to that day, 00:00:00 WAT to the next (34ms)
+  ok  4 tests\recovery-ledger.spec.ts:49:7 › Cut-off and time zone › TC04 time-zone conversion: a WAT-offset timestamp maps to the right WAT day; zone-less is rejected (22ms)
+  ok  5 tests\recovery-ledger.spec.ts:63:7 › Duplicates and retries — selected failure › TC05 byte-identical duplicate is acknowledged and changes nothing (24ms)
+  ok  6 tests\recovery-ledger.spec.ts:73:7 › Duplicates and retries — selected failure › TC06 retry after a lost response is applied once (34ms)
+  ok  7 tests\recovery-ledger.spec.ts:89:7 › Duplicates and retries — selected failure › TC07 a retried repayment cannot make an unpaid loan look recovered (113ms)
+  ok  8 tests\recovery-ledger.spec.ts:103:7 › Duplicates and retries — selected failure › TC08 daily reconciliation reports one repayment after a retry (25ms)
+  ok  9 tests\recovery-ledger.spec.ts:114:7 › Duplicates and retries — selected failure › TC09 two different repayments of the same amount both count (24ms)
+  ok 10 tests\recovery-ledger.spec.ts:121:7 › Duplicates and retries — selected failure › TC10 reusing an event_id with a different amount is rejected (24ms)
+  ok 11 tests\recovery-ledger.spec.ts:132:7 › Partial failure › TC11 balance update fails after commit → event kept, reconciliation repairs the balance (34ms)
+  ok 12 tests\recovery-ledger.spec.ts:147:7 › Guards › TC12 overpayment floors the balance at 0 and records the excess (19ms)
+  ok 13 tests\recovery-ledger.spec.ts:153:7 › Guards › TC13 unknown loan and second escalation are rejected (20ms)
+  ok 14 tests\recovery-ledger.spec.ts:162:7 › Guards › TC14 write-off keeps the balance as written off; resolved loans accept no more events (28ms)
+  ok 15 tests\recovery-ledger.spec.ts:173:7 › Guards › TC15 naira amounts with more than 2 decimal places are rejected (23ms)
+
+  15 passed (5.1s)

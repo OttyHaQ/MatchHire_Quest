@@ -1,0 +1,652 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\node_modules\\@playwright\\test\\cli.js",
+      "test"
+    ],
+    "configFile": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\playwright.config.ts",
+    "rootDir": "C:/Users/HP/Documents/recovery-ledger-quest/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/HP/Documents/recovery-ledger-quest/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/HP/Documents/recovery-ledger-quest/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "results/fixed/results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "results/fixed/html-report",
+          "open": "never"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": {
+      "command": "npx tsx src/server.ts",
+      "url": "http://localhost:4010/health",
+      "env": {
+        "RL_MODE": "fixed",
+        "PORT": "4010"
+      },
+      "reuseExistingServer": false,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "recovery-ledger.spec.ts",
+      "file": "recovery-ledger.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Happy path and allocation",
+          "file": "recovery-ledger.spec.ts",
+          "line": 14,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC01 escalate → full repayment → RECOVERED is accepted",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 114,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:22.675Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-82e3cc133ba9974d8f57",
+              "file": "recovery-ledger.spec.ts",
+              "line": 15,
+              "column": 7
+            },
+            {
+              "title": "TC02 repayment clears interest first; interest posting adds to interest",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 56,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:22.866Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-02c53622914dfa400052",
+              "file": "recovery-ledger.spec.ts",
+              "line": 27,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Cut-off and time zone",
+          "file": "recovery-ledger.spec.ts",
+          "line": 37,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC03 cut-off: 23:59:59 WAT belongs to that day, 00:00:00 WAT to the next",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 34,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:22.948Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-6f1efce318b3ba5a09b0",
+              "file": "recovery-ledger.spec.ts",
+              "line": 38,
+              "column": 7
+            },
+            {
+              "title": "TC04 time-zone conversion: a WAT-offset timestamp maps to the right WAT day; zone-less is rejected",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 22,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:23.016Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-45b2a3d588970cd829b8",
+              "file": "recovery-ledger.spec.ts",
+              "line": 49,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Duplicates and retries — selected failure",
+          "file": "recovery-ledger.spec.ts",
+          "line": 62,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC05 byte-identical duplicate is acknowledged and changes nothing",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 24,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:23.060Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-ffb9d33ea2ab011bfafd",
+              "file": "recovery-ledger.spec.ts",
+              "line": 63,
+              "column": 7
+            },
+            {
+              "title": "TC06 retry after a lost response is applied once",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 34,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:23.105Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-45a2cfd6014073f582f3",
+              "file": "recovery-ledger.spec.ts",
+              "line": 73,
+              "column": 7
+            },
+            {
+              "title": "TC07 a retried repayment cannot make an unpaid loan look recovered",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 113,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:23.156Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-b6295a80564737d3eed9",
+              "file": "recovery-ledger.spec.ts",
+              "line": 89,
+              "column": 7
+            },
+            {
+              "title": "TC08 daily reconciliation reports one repayment after a retry",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 25,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:23.284Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-38b27c84e1ba8bc8f1bc",
+              "file": "recovery-ledger.spec.ts",
+              "line": 103,
+              "column": 7
+            },
+            {
+              "title": "TC09 two different repayments of the same amount both count",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 24,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:23.325Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-3e93f4a7f4cbe540a432",
+              "file": "recovery-ledger.spec.ts",
+              "line": 114,
+              "column": 7
+            },
+            {
+              "title": "TC10 reusing an event_id with a different amount is rejected",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 24,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:23.365Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-5c744af1b6a90ff311d3",
+              "file": "recovery-ledger.spec.ts",
+              "line": 121,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Partial failure",
+          "file": "recovery-ledger.spec.ts",
+          "line": 131,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC11 balance update fails after commit → event kept, reconciliation repairs the balance",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 34,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:23.404Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-a461da9a02e1c84e7183",
+              "file": "recovery-ledger.spec.ts",
+              "line": 132,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Guards",
+          "file": "recovery-ledger.spec.ts",
+          "line": 146,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC12 overpayment floors the balance at 0 and records the excess",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 19,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:23.453Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-f6c607b32734513be623",
+              "file": "recovery-ledger.spec.ts",
+              "line": 147,
+              "column": 7
+            },
+            {
+              "title": "TC13 unknown loan and second escalation are rejected",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 20,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:23.484Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-545b9c2e38dada147cdf",
+              "file": "recovery-ledger.spec.ts",
+              "line": 153,
+              "column": 7
+            },
+            {
+              "title": "TC14 write-off keeps the balance as written off; resolved loans accept no more events",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 28,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:23.521Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-12251eeb4716b588b41e",
+              "file": "recovery-ledger.spec.ts",
+              "line": 162,
+              "column": 7
+            },
+            {
+              "title": "TC15 naira amounts with more than 2 decimal places are rejected",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 23,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:23.562Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-83e7d2794100a198044f",
+              "file": "recovery-ledger.spec.ts",
+              "line": 173,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-03T13:11:18.884Z",
+    "duration": 5146.061,
+    "expected": 15,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

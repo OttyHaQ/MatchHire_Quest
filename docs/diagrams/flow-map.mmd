@@ -1,0 +1,41 @@
+%% Source for docs/diagrams/flow-map.png (shown in docs/business-rules.md).
+%% After editing, regenerate the image: npx tsx scripts/render-diagram.ts
+%%{init: {"flowchart": {"curve": "basis", "nodeSpacing": 35, "rankSpacing": 40, "padding": 14}}}%%
+flowchart TD
+    START(["Lending system<br/>sends an event"])
+    RETRY(["Same event sent again<br/><i>its first reply was lost</i>"])
+
+    START --> Q1{"Correct<br/>format?"}
+    RETRY -.-> Q1
+    Q1 -- No --> X1["Rejected · 400<br/><i>e.g. no time zone,<br/>or ₦10.005</i>"]
+    Q1 -- Yes --> Q2{"Event ID<br/>seen before?"}
+
+    Q2 -- "Yes, same details" --> DUP["Already handled · 200<br/><i>nothing changes —<br/>a retry must end here</i>"]
+    Q2 -- "Yes, different details" --> X2["Rejected · 409<br/><i>ID reused for<br/>a different event</i>"]
+    Q2 -- New --> Q3{"Allowed for<br/>this loan?"}
+
+    Q3 -- No --> X3["Rejected · 404 / 409<br/><i>unknown or closed loan,<br/>or RECOVERED while<br/>money is still owed</i>"]
+    Q3 -- Yes --> SAVE[("Saved to<br/>the ledger")]
+
+    SAVE --> Q4{"Balance<br/>updated?"}
+    Q4 -- Yes --> OK["Accepted · 200"]
+    Q4 -- No --> WARN["Accepted · 200<br/><i>with a warning;<br/>fixed overnight</i>"]
+    SAVE -. every night .-> NIGHT["Nightly check · 02:00 WAT<br/><i>rebuilds every balance<br/>from the ledger</i>"]
+
+    classDef start fill:#e8eaf6,stroke:#3f51b5,color:#1a237e
+    classDef question fill:#fffde7,stroke:#9e8a00,color:#3e3500
+    classDef reject fill:#fdecea,stroke:#c62828,color:#7f1d1d
+    classDef ok fill:#e8f5e9,stroke:#2e7d32,color:#1b4d20
+    classDef warn fill:#fff3e0,stroke:#e65100,color:#6d2c00
+    classDef dup fill:#e3f2fd,stroke:#1565c0,color:#0d3c73
+    classDef store fill:#ede7f6,stroke:#5e35b1,color:#311b72
+    classDef retry fill:#fce4ec,stroke:#ad1457,color:#6a0f37,stroke-dasharray:5 3
+
+    class START start
+    class Q1,Q2,Q3,Q4 question
+    class X1,X2,X3 reject
+    class OK ok
+    class WARN warn
+    class DUP dup
+    class SAVE,NIGHT store
+    class RETRY retry

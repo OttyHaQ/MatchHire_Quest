@@ -1,0 +1,24 @@
+{
+  "name": "recovery-ledger-quest",
+  "version": "1.0.0",
+  "description": "QA quest: duplicate repayment on client retry in a fictional loan-recovery ledger",
+  "scripts": {
+    "start": "tsx src/server.ts",
+    "start:faulty": "cross-env RL_MODE=faulty tsx src/server.ts",
+    "test": "cross-env RL_MODE=fixed playwright test",
+    "test:fixed": "cross-env RL_MODE=fixed playwright test",
+    "test:faulty": "cross-env RL_MODE=faulty playwright test",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.6",
+    "cross-env": "^10.1.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "private": true
+}

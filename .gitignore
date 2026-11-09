@@ -1,0 +1,17 @@
+node_modules/
+test-results/
+playwright-report/
+
+# Local Claude Code settings (machine-specific)
+.claude/
+
+# Environment files: never commit keys or credentials
+.env
+.env.*
+
+# Windows folder files
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log

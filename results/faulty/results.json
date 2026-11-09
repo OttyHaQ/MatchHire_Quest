@@ -1,0 +1,772 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\node_modules\\@playwright\\test\\cli.js",
+      "test"
+    ],
+    "configFile": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\playwright.config.ts",
+    "rootDir": "C:/Users/HP/Documents/recovery-ledger-quest/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/HP/Documents/recovery-ledger-quest/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/HP/Documents/recovery-ledger-quest/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "results/faulty/results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "results/faulty/html-report",
+          "open": "never"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": {
+      "command": "npx tsx src/server.ts",
+      "url": "http://localhost:4011/health",
+      "env": {
+        "RL_MODE": "faulty",
+        "PORT": "4011"
+      },
+      "reuseExistingServer": false,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "recovery-ledger.spec.ts",
+      "file": "recovery-ledger.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Happy path and allocation",
+          "file": "recovery-ledger.spec.ts",
+          "line": 14,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC01 escalate → full repayment → RECOVERED is accepted",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 74,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:29.853Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-82e3cc133ba9974d8f57",
+              "file": "recovery-ledger.spec.ts",
+              "line": 15,
+              "column": 7
+            },
+            {
+              "title": "TC02 repayment clears interest first; interest posting adds to interest",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 32,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:29.991Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-02c53622914dfa400052",
+              "file": "recovery-ledger.spec.ts",
+              "line": 27,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Cut-off and time zone",
+          "file": "recovery-ledger.spec.ts",
+          "line": 37,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC03 cut-off: 23:59:59 WAT belongs to that day, 00:00:00 WAT to the next",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 28,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:30.045Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-6f1efce318b3ba5a09b0",
+              "file": "recovery-ledger.spec.ts",
+              "line": 38,
+              "column": 7
+            },
+            {
+              "title": "TC04 time-zone conversion: a WAT-offset timestamp maps to the right WAT day; zone-less is rejected",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 20,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:30.095Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-45b2a3d588970cd829b8",
+              "file": "recovery-ledger.spec.ts",
+              "line": 49,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Duplicates and retries — selected failure",
+          "file": "recovery-ledger.spec.ts",
+          "line": 62,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC05 byte-identical duplicate is acknowledged and changes nothing",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 18,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:30.135Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-ffb9d33ea2ab011bfafd",
+              "file": "recovery-ledger.spec.ts",
+              "line": 63,
+              "column": 7
+            },
+            {
+              "title": "TC06 retry after a lost response is applied once",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 28,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[2m    \"body\": Object {\u001b[22m\n\u001b[32m-     \"status\": \"DUPLICATE\",\u001b[39m\n\u001b[31m+     \"status\": \"ACCEPTED\",\u001b[39m\n\u001b[2m    },\u001b[22m\n\u001b[2m    \"status\": 200,\u001b[22m\n\u001b[2m  }\u001b[22m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[2m    \"body\": Object {\u001b[22m\n\u001b[32m-     \"status\": \"DUPLICATE\",\u001b[39m\n\u001b[31m+     \"status\": \"ACCEPTED\",\u001b[39m\n\u001b[2m    },\u001b[22m\n\u001b[2m    \"status\": 200,\u001b[22m\n\u001b[2m  }\u001b[22m\n    at C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts:82:19",
+                        "location": {
+                          "file": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts",
+                          "column": 19,
+                          "line": 82
+                        },
+                        "snippet": "  80 |\n  81 |     const retry = await client.send(event, '2026-10-05T10:00:31.000Z'); // client retries 30s later\n> 82 |     expect(retry).toMatchObject({ status: 200, body: { status: 'DUPLICATE' } });\n     |                   ^\n  83 |\n  84 |     const repayments = (await client.ledger('L-006')).filter((e) => e.type === 'REPAYMENT');\n  85 |     expect(repayments, 'one repayment event must produce one ledger entry').toHaveLength(1);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts",
+                            "column": 19,
+                            "line": 82
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[2m    \"body\": Object {\u001b[22m\n\u001b[32m-     \"status\": \"DUPLICATE\",\u001b[39m\n\u001b[31m+     \"status\": \"ACCEPTED\",\u001b[39m\n\u001b[2m    },\u001b[22m\n\u001b[2m    \"status\": 200,\u001b[22m\n\u001b[2m  }\u001b[22m\n\n  80 |\n  81 |     const retry = await client.send(event, '2026-10-05T10:00:31.000Z'); // client retries 30s later\n> 82 |     expect(retry).toMatchObject({ status: 200, body: { status: 'DUPLICATE' } });\n     |                   ^\n  83 |\n  84 |     const repayments = (await client.ledger('L-006')).filter((e) => e.type === 'REPAYMENT');\n  85 |     expect(repayments, 'one repayment event must produce one ledger entry').toHaveLength(1);\n    at C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts:82:19"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:30.170Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\test-results\\recovery-ledger-Duplicates-eee66-st-response-is-applied-once\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts",
+                        "column": 19,
+                        "line": 82
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-45a2cfd6014073f582f3",
+              "file": "recovery-ledger.spec.ts",
+              "line": 73,
+              "column": 7
+            },
+            {
+              "title": "TC07 a retried repayment cannot make an unpaid loan look recovered",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 89,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"overpayment_naira\": 0,\u001b[39m\n\u001b[32m-   \"total_outstanding_naira\": 4000,\u001b[39m\n\u001b[31m+   \"overpayment_naira\": 2000,\u001b[39m\n\u001b[31m+   \"total_outstanding_naira\": 0,\u001b[39m\n\u001b[2m  }\u001b[22m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"overpayment_naira\": 0,\u001b[39m\n\u001b[32m-   \"total_outstanding_naira\": 4000,\u001b[39m\n\u001b[31m+   \"overpayment_naira\": 2000,\u001b[39m\n\u001b[31m+   \"total_outstanding_naira\": 0,\u001b[39m\n\u001b[2m  }\u001b[22m\n    at C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts:96:40",
+                        "location": {
+                          "file": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts",
+                          "column": 40,
+                          "line": 96
+                        },
+                        "snippet": "  94 |     await client.send(event, '2026-10-05T10:00:31.000Z');\n  95 |\n> 96 |     expect(await client.loan('L-007')).toMatchObject({ total_outstanding_naira: 4_000, overpayment_naira: 0 });\n     |                                        ^\n  97 |\n  98 |     const resolve = await client.send({ event_id: 'res-007', loan_id: 'L-007', type: 'RESOLUTION', resolution: 'RECOVERED' });\n  99 |     expect(resolve).toMatchObject({ status: 409, body: { code: 'BALANCE_NOT_ZERO' } });"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts",
+                            "column": 40,
+                            "line": 96
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"overpayment_naira\": 0,\u001b[39m\n\u001b[32m-   \"total_outstanding_naira\": 4000,\u001b[39m\n\u001b[31m+   \"overpayment_naira\": 2000,\u001b[39m\n\u001b[31m+   \"total_outstanding_naira\": 0,\u001b[39m\n\u001b[2m  }\u001b[22m\n\n  94 |     await client.send(event, '2026-10-05T10:00:31.000Z');\n  95 |\n> 96 |     expect(await client.loan('L-007')).toMatchObject({ total_outstanding_naira: 4_000, overpayment_naira: 0 });\n     |                                        ^\n  97 |\n  98 |     const resolve = await client.send({ event_id: 'res-007', loan_id: 'L-007', type: 'RESOLUTION', resolution: 'RECOVERED' });\n  99 |     expect(resolve).toMatchObject({ status: 409, body: { code: 'BALANCE_NOT_ZERO' } });\n    at C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts:96:40"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:30.937Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\test-results\\recovery-ledger-Duplicates-03d26--unpaid-loan-look-recovered\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts",
+                        "column": 40,
+                        "line": 96
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-b6295a80564737d3eed9",
+              "file": "recovery-ledger.spec.ts",
+              "line": 89,
+              "column": 7
+            },
+            {
+              "title": "TC08 daily reconciliation reports one repayment after a retry",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 95,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"repayment_count\": 1,\u001b[39m\n\u001b[32m-   \"repayment_total_naira\": 6000,\u001b[39m\n\u001b[31m+   \"repayment_count\": 2,\u001b[39m\n\u001b[31m+   \"repayment_total_naira\": 12000,\u001b[39m\n\u001b[2m  }\u001b[22m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"repayment_count\": 1,\u001b[39m\n\u001b[32m-   \"repayment_total_naira\": 6000,\u001b[39m\n\u001b[31m+   \"repayment_count\": 2,\u001b[39m\n\u001b[31m+   \"repayment_total_naira\": 12000,\u001b[39m\n\u001b[2m  }\u001b[22m\n    at C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts:111:32",
+                        "location": {
+                          "file": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts",
+                          "column": 32,
+                          "line": 111
+                        },
+                        "snippet": "  109 |\n  110 |     const report = await client.reconcile('2026-10-05');\n> 111 |     expect(report.day_summary).toMatchObject({ repayment_count: 1, repayment_total_naira: 6_000 });\n      |                                ^\n  112 |   });\n  113 |\n  114 |   test('TC09 two different repayments of the same amount both count', async () => {"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts",
+                            "column": 32,
+                            "line": 111
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"repayment_count\": 1,\u001b[39m\n\u001b[32m-   \"repayment_total_naira\": 6000,\u001b[39m\n\u001b[31m+   \"repayment_count\": 2,\u001b[39m\n\u001b[31m+   \"repayment_total_naira\": 12000,\u001b[39m\n\u001b[2m  }\u001b[22m\n\n  109 |\n  110 |     const report = await client.reconcile('2026-10-05');\n> 111 |     expect(report.day_summary).toMatchObject({ repayment_count: 1, repayment_total_naira: 6_000 });\n      |                                ^\n  112 |   });\n  113 |\n  114 |   test('TC09 two different repayments of the same amount both count', async () => {\n    at C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts:111:32"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:31.750Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\test-results\\recovery-ledger-Duplicates-40a3c-one-repayment-after-a-retry\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts",
+                        "column": 32,
+                        "line": 111
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-38b27c84e1ba8bc8f1bc",
+              "file": "recovery-ledger.spec.ts",
+              "line": 103,
+              "column": 7
+            },
+            {
+              "title": "TC09 two different repayments of the same amount both count",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 73,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:32.548Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-3e93f4a7f4cbe540a432",
+              "file": "recovery-ledger.spec.ts",
+              "line": 114,
+              "column": 7
+            },
+            {
+              "title": "TC10 reusing an event_id with a different amount is rejected",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 34,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 4\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[2m    \"body\": Object {\u001b[22m\n\u001b[32m-     \"code\": \"EVENT_ID_CONFLICT\",\u001b[39m\n\u001b[31m+     \"business_date\": \"2026-10-05\",\u001b[39m\n\u001b[31m+     \"seq\": 3,\u001b[39m\n\u001b[31m+     \"status\": \"ACCEPTED\",\u001b[39m\n\u001b[2m    },\u001b[22m\n\u001b[32m-   \"status\": 409,\u001b[39m\n\u001b[31m+   \"status\": 200,\u001b[39m\n\u001b[2m  }\u001b[22m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 4\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[2m    \"body\": Object {\u001b[22m\n\u001b[32m-     \"code\": \"EVENT_ID_CONFLICT\",\u001b[39m\n\u001b[31m+     \"business_date\": \"2026-10-05\",\u001b[39m\n\u001b[31m+     \"seq\": 3,\u001b[39m\n\u001b[31m+     \"status\": \"ACCEPTED\",\u001b[39m\n\u001b[2m    },\u001b[22m\n\u001b[32m-   \"status\": 409,\u001b[39m\n\u001b[31m+   \"status\": 200,\u001b[39m\n\u001b[2m  }\u001b[22m\n    at C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts:126:19",
+                        "location": {
+                          "file": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts",
+                          "column": 19,
+                          "line": 126
+                        },
+                        "snippet": "  124 |     const clash = await client.send({ event_id: 'rep-010', loan_id: 'L-010', type: 'REPAYMENT', amount_naira: 9_000 });\n  125 |\n> 126 |     expect(clash).toMatchObject({ status: 409, body: { code: 'EVENT_ID_CONFLICT' } });\n      |                   ^\n  127 |     expect((await client.loan('L-010')).total_outstanding_naira).toBe(49_000);\n  128 |   });\n  129 | });"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts",
+                            "column": 19,
+                            "line": 126
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 4\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[2m    \"body\": Object {\u001b[22m\n\u001b[32m-     \"code\": \"EVENT_ID_CONFLICT\",\u001b[39m\n\u001b[31m+     \"business_date\": \"2026-10-05\",\u001b[39m\n\u001b[31m+     \"seq\": 3,\u001b[39m\n\u001b[31m+     \"status\": \"ACCEPTED\",\u001b[39m\n\u001b[2m    },\u001b[22m\n\u001b[32m-   \"status\": 409,\u001b[39m\n\u001b[31m+   \"status\": 200,\u001b[39m\n\u001b[2m  }\u001b[22m\n\n  124 |     const clash = await client.send({ event_id: 'rep-010', loan_id: 'L-010', type: 'REPAYMENT', amount_naira: 9_000 });\n  125 |\n> 126 |     expect(clash).toMatchObject({ status: 409, body: { code: 'EVENT_ID_CONFLICT' } });\n      |                   ^\n  127 |     expect((await client.loan('L-010')).total_outstanding_naira).toBe(49_000);\n  128 |   });\n  129 | });\n    at C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts:126:19"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:32.683Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\test-results\\recovery-ledger-Duplicates-22b85-ifferent-amount-is-rejected\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Users\\HP\\Documents\\recovery-ledger-quest\\tests\\recovery-ledger.spec.ts",
+                        "column": 19,
+                        "line": 126
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-5c744af1b6a90ff311d3",
+              "file": "recovery-ledger.spec.ts",
+              "line": 121,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Partial failure",
+          "file": "recovery-ledger.spec.ts",
+          "line": 131,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC11 balance update fails after commit → event kept, reconciliation repairs the balance",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 86,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:33.383Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-a461da9a02e1c84e7183",
+              "file": "recovery-ledger.spec.ts",
+              "line": 132,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Guards",
+          "file": "recovery-ledger.spec.ts",
+          "line": 146,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC12 overpayment floors the balance at 0 and records the excess",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 27,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:33.525Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-f6c607b32734513be623",
+              "file": "recovery-ledger.spec.ts",
+              "line": 147,
+              "column": 7
+            },
+            {
+              "title": "TC13 unknown loan and second escalation are rejected",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 28,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:33.571Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-545b9c2e38dada147cdf",
+              "file": "recovery-ledger.spec.ts",
+              "line": 153,
+              "column": 7
+            },
+            {
+              "title": "TC14 write-off keeps the balance as written off; resolved loans accept no more events",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 28,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:33.617Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-12251eeb4716b588b41e",
+              "file": "recovery-ledger.spec.ts",
+              "line": 162,
+              "column": 7
+            },
+            {
+              "title": "TC15 naira amounts with more than 2 decimal places are rejected",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 18,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-03T13:11:33.658Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a9b5ce5b61440cc7454-83e7d2794100a198044f",
+              "file": "recovery-ledger.spec.ts",
+              "line": 173,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-03T13:11:26.017Z",
+    "duration": 7951.652,
+    "expected": 11,
+    "skipped": 0,
+    "unexpected": 4,
+    "flaky": 0
+  }
+}
