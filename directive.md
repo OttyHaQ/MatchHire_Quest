@@ -33,7 +33,7 @@ Make sure a repayment event retried by a lending client is applied to a defaulte
 - [x] `npm run test:fixed` → 15 passed
 - [x] Reproduction transcript shows the faulty build accepting the retry and a false RECOVERED, and the fixed build rejecting both
 - [x] Defect report, test-case table and release-readiness checklist written and linked below
-- [ ] Repository pushed and links below are publicly accessible
+- [x] Repository pushed and links below are publicly accessible
 - [ ] Loom recorded (≤ 5 minutes) and linked below
 
 ## Appendix — results and handoff
@@ -42,7 +42,7 @@ Make sure a repayment event retried by a lending client is applied to a defaulte
 
 | Item | Link |
 |---|---|
-| Repository | **[GitHub URL]** |
+| Repository | [github.com/OttyHaQ/MatchHire_Quest](https://github.com/OttyHaQ/MatchHire_Quest) |
 | Loom walkthrough | **[Loom URL]** |
 | Why this problem, ranking, AI use | [intent.md](intent.md) |
 | Business rules, assumptions and flow map | [docs/business-rules.md](docs/business-rules.md) |
